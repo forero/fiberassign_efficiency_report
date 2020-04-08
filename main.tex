@@ -11,10 +11,58 @@
 
 \section{Introduction}
 
+
+\section{Software Versions}
+
+The test ran with the \verb'desi master' versions on October 2019.
+
+The scripts to prepare the data and derive the statistics are stored
+under \verb"https://github.com/forero/multipass"
+
+\section{Inputs}
+
+\begin{itemize}
+\item Sky positions: \\
+\verb"/project/projectdirs/desi/target/catalogs/dr8/0.31.0/skies/skies-dr8-0.31.0.fits"
+\item Targets:\\
+\verb"/project/projectdirs/desi/target/catalogs/dr8/0.31.1/targets/main/resolve/"
+\item Truth:\\
+I assign a true spectral type to each target in the
+following order:
+\verb'MWS_ANY', \verb'BGS_ANY', \verb'STD_FAINT',
+\verb'STD_BRIGHT',\verb'ELG', \verb'LRG', \verb'QSO'.
+This means that if a target passed both cuts for, say, \verb'MWS_ANY' and
+\verb'QSO' then it is assigned to be a \verb'QSO'.
+Finally, I assign a number density of $50$ deg$^{-2}$
+to Lya QSO targets.
+
+\item Footprint:\\
+I use the result of \verb'desimodel.io.load_tiles()'.
+I use the \verb"DARK" and \verb"GRAY" tiles split into 
+five different layers: \verb`gray`,
+\verb'dark0', \verb'dark1', \verb'dark2' and \verb'dark3'.
+
+\end{itemize}
+For all the files we use a subset with coordinates 
+$130<$ RA $<180$ and
+$-10<$ dec $<40$. 
+
+The statistics are derived within a region of coordinates 
+$140<$ RA $<180$ and
+$10<$ dec $<20$. 
+
 \section{Simulation setup}
 
-I use two different fiberassign executables.
+I use three different fiberassign executables.
+\begin{itemize}
+\item \verb"fiberassign": the version on \verb'master'.
+\item \verb"fiberassign_legacy": the legacy version.
+\item \verb'fiberassign_legacy_noimprove': the legacy version compiled
+without the \verb'improve' step.
+\end{itemize}
 
+Furthermore I use two different survey strategies to run fiberassign, 
+create the redshift catalogs and update the MTL file.
 
 \section{Results}
 
