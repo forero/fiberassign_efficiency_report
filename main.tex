@@ -17,7 +17,9 @@
 The test ran with the \verb'desi master' versions on October 2019.
 
 The scripts to prepare the data and derive the statistics are stored
-under \verb"https://github.com/forero/multipass"
+under \verb"https://github.com/forero/multipass". The script
+\verb'run_multilayer.py' prepares the data and runs fiberasign while
+\verb'stats_multilayer.py' derives the statistics.
 
 \section{Inputs}
 
@@ -49,7 +51,8 @@ $-10<$ dec $<40$.
 
 The statistics are derived within a region of coordinates 
 $140<$ RA $<180$ and
-$10<$ dec $<20$. 
+$10<$ dec $<20$. (Yes, that's right. The upper limit in RA goes very
+close to the bondary.)
 
 \section{Simulation setup}
 
@@ -65,5 +68,11 @@ Furthermore I use two different survey strategies to run fiberassign,
 create the redshift catalogs and update the MTL file.
 
 \section{Results}
+
+In the following table I summarize the absolute numbers for 
+each target and the number of observations it had. The last columns
+lists the efficiency computed as the number of targets with at least
+one observation divided between the total number of available targets.
+
 
 \end{document}
