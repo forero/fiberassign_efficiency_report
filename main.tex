@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\title{Fiberassign efficiency}
+\title{Fiberassign efficiency October 2019}
 \author{J. E. Forero-Romero}
 \date{April 2020}
 
@@ -9,17 +9,19 @@
 
 \maketitle
 
-\section{Introduction}
-I use data from DR8 to estimate the fiberassign efficiency.
+\begin{abstract}
+I use $400$ deg$^2$ of data from DR8 to estimate the fiberassign efficiency.
 I compare three different versions of fiberassign and two different
 strategies to run fiberassign during the survey. 
-The simulation runs iteratively fiberassign on different layers,
+The simulation iteratively runs fiberassign on different layers,
 builds the redshift catalog and updates the Merged Target List.
-The efficiencies are estimated from the final redshift catalog.
-The test run on October 2019. This means that both fiberassign, focal
-plane and footprint correspond to versions that are deprecated at the
-time of writing.
-
+The efficiencies are estimated from the final redshift catalog after running 
+on all the dark and gray layers.
+The test was made on October 2019. This means that fiberassign, the focal
+plane and the footprint correspond to versions that are currently deprecated 
+(April 2020). 
+The efficiency results are close to 98.5 \% for QSO, 94.5 \% for LRG and 69.9 \% for ELG. Different fiberassign codes and strategies change the efficiency by 1\%.
+\end{abstract}
 \section{Software Versions}
 
 The test ran with the \verb'desi master' versions on October 2019. 
@@ -55,7 +57,6 @@ five different layers: \verb`gray`,
 For all the files we use a subset with coordinates 
 $130<$ RA $<180$ and
 $-10<$ dec $<40$. 
-
 The statistics are derived within a region of coordinates 
 $140<$ RA $<180$ and
 $10<$ dec $<20$. (Yes, that's right. The upper limit in RA goes up the
@@ -75,21 +76,24 @@ I group the tiles into four consecutive layers: \verb'gray', \verb'dark0',
 \verb'dark1' and \verb'dark2+dark3'.
 I use two different strategies to run fiberassign,  create the
 redshift catalogs and update the MTL file. 
-The first strategy \textbf{Strategy A} runs fiberassign for each
+The first strategy (\textbf{Strategy A}) runs fiberassign for each
 layer.
-The second strategy \textbf{Strategy B} runs fiberassign for all
+The second strategy (\textbf{Strategy B}) runs fiberassign for all
 future layers.
-In both cases the redshift catalog grows progressively from the tiles
-in each one of the layers.
+In both cases the redshift catalog grows progressively with the tiles of each layer.
+
+This means that for \textbf{Strategy B} I start running fiberassign for all tiles in layers \verb'gray+dark0+dark1+dark2+dark3' but use only the tiles in \verb'gray0' to build the first iteration of the redshift catalog. 
+In contrast,  \textbf{Strategy A} starts running fiberassign for the \verb'gray' layer only.
 
 
 
 \section{Results}
 
-In the following table I summarize the absolute numbers for 
-each target and the number of observations it had. The last columns
+In the following tables I summarize the absolute numbers for 
+each target and the number of observations it had. The last column
 lists the efficiency computed as the number of targets with at least
 one observation divided between the total number of available targets.
+Targets that were out of reach are not taken into account.
 
 \newpage
 
