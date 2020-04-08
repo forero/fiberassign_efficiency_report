@@ -10,16 +10,23 @@
 \maketitle
 
 \section{Introduction}
-
+I use data from DR8 to estimate the fiberassign efficiency.
+I compare three different versions of fiberassign and two different
+strategies to run fiberassign during the survey. 
+The simulation runs iteratively fiberassign on different layers,
+builds the redshift catalog and updates the Merged Target List.
+The efficiencies are estimated from the final redshift catalog.
+The test run on October 2019. This means that both fiberassign, focal
+plane and footprint correspond to versions that are deprecated at the
+time of writing.
 
 \section{Software Versions}
 
-The test ran with the \verb'desi master' versions on October 2019.
-
+The test ran with the \verb'desi master' versions on October 2019. 
 The scripts to prepare the data and derive the statistics are stored
-under \verb"https://github.com/forero/multipass". The script
-\verb'run_multilayer.py' prepares the data and runs fiberasign while
-\verb'stats_multilayer.py' derives the statistics.
+under \verb"https://github.com/forero/multipass". 
+The script \verb'run_multilayer.py' prepares the data and runs fiberasign while
+\verb'stats_multilayer.py' derives the statistics. 
 
 \section{Inputs}
 
@@ -51,21 +58,31 @@ $-10<$ dec $<40$.
 
 The statistics are derived within a region of coordinates 
 $140<$ RA $<180$ and
-$10<$ dec $<20$. (Yes, that's right. The upper limit in RA goes very
-close to the bondary.)
+$10<$ dec $<20$. (Yes, that's right. The upper limit in RA goes up the
+to inital boundary in the input targets.)
 
 \section{Simulation setup}
 
 I use three different fiberassign executables.
 \begin{itemize}
-\item \verb"fiberassign": the version on \verb'master'.
+\item \verb"fiberassign_master": the version on \verb'master'.
 \item \verb"fiberassign_legacy": the legacy version.
 \item \verb'fiberassign_legacy_noimprove': the legacy version compiled
 without the \verb'improve' step.
 \end{itemize}
 
-Furthermore I use two different survey strategies to run fiberassign, 
-create the redshift catalogs and update the MTL file.
+I group the tiles into four consecutive layers: \verb'gray', \verb'dark0',
+\verb'dark1' and \verb'dark2+dark3'.
+I use two different strategies to run fiberassign,  create the
+redshift catalogs and update the MTL file. 
+The first strategy \textbf{Strategy A} runs fiberassign for each
+layer.
+The second strategy \textbf{Strategy B} runs fiberassign for all
+future layers.
+In both cases the redshift catalog grows progressively from the tiles
+in each one of the layers.
+
+
 
 \section{Results}
 
@@ -73,6 +90,8 @@ In the following table I summarize the absolute numbers for
 each target and the number of observations it had. The last columns
 lists the efficiency computed as the number of targets with at least
 one observation divided between the total number of available targets.
+
+\newpage
 
 \subsection*{master strategy A}
 \begin{center}
@@ -121,6 +140,16 @@ ELG &  295059 &  714726 &  0 &  0 &  0 &  0.7078\\
 QSO & 1445 &  78583 &  10953 &  4223 &  13524 &  0.9867\\
 LRG & 8675 &  134208 &  44756 &  0 &  0 &  0.9537\\
 ELG & 285927 &  723856 &  0 &  0 &  0 &  0.7168\\
+\end{tabular}
+\end{center}
+
+\subsection*{legacy noimprove strategy B}
+\begin{center}
+\begin{tabular}{l|ccccc|c}
+ & N=0 & N=1 & N=2 & N=3 & N=4 & eff\\\hline
+QSO &  1431 &  78458 &  11106 &  4192 &  13541 &  0.9868\\
+LRG &  8696 &  134180 &  44763 &  0 &  0 &  0.9536 \\
+ELG &  297234 &  712549 &  0 &  0 &  0 &  0.7056\\
 \end{tabular}
 \end{center}
 
